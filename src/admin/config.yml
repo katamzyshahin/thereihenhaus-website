@@ -1,0 +1,213 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "hero"
+    label: "Hero"
+    files:
+      - file: "src/_data/hero.yaml"
+        label: "Hero Sektion"
+        name: "hero"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Titel Zeile 1 (DE)", name: "title_line1_de", widget: "string" }
+          - { label: "Titel Zeile 2 (DE)", name: "title_line2_de", widget: "string" }
+          - { label: "Titel Zeile 3 (DE, hervorgehoben)", name: "title_line3_de", widget: "string" }
+          - { label: "Title Line 1 (EN)", name: "title_line1_en", widget: "string" }
+          - { label: "Title Line 2 (EN)", name: "title_line2_en", widget: "string" }
+          - { label: "Title Line 3 (EN, highlighted)", name: "title_line3_en", widget: "string" }
+          - { label: "Untertitel (DE)", name: "subtitle_de", widget: "text" }
+          - { label: "Subtitle (EN)", name: "subtitle_en", widget: "text" }
+          - { label: "Button Text (DE)", name: "cta_label_de", widget: "string" }
+          - { label: "Button Text (EN)", name: "cta_label_en", widget: "string" }
+          - { label: "Button Link", name: "cta_link", widget: "string" }
+          - { label: "Foto", name: "photo", widget: "image", required: false }
+          - { label: "Foto Platzhalter Text (DE)", name: "photo_placeholder_de", widget: "string" }
+          - { label: "Foto Platzhalter Text (EN)", name: "photo_placeholder_en", widget: "string" }
+
+  - name: "about"
+    label: "Über uns"
+    files:
+      - file: "src/_data/about.yaml"
+        label: "Über uns Sektion"
+        name: "about"
+        fields:
+          - { label: "Eyebrow (DE)", name: "eyebrow_de", widget: "string" }
+          - { label: "Eyebrow (EN)", name: "eyebrow_en", widget: "string" }
+          - { label: "Überschrift (DE, HTML erlaubt für <br>)", name: "heading_de", widget: "string" }
+          - { label: "Heading (EN, HTML allowed for <br>)", name: "heading_en", widget: "string" }
+          - { label: "Absatz 1 (DE)", name: "paragraph1_de", widget: "text" }
+          - { label: "Paragraph 1 (EN)", name: "paragraph1_en", widget: "text" }
+          - { label: "Absatz 2 (DE)", name: "paragraph2_de", widget: "text" }
+          - { label: "Paragraph 2 (EN)", name: "paragraph2_en", widget: "text" }
+          - { label: "Tags", name: "tags", widget: "list" }
+          - { label: "Foto", name: "photo", widget: "image", required: false }
+          - { label: "Foto Platzhalter (DE)", name: "photo_placeholder_de", widget: "string" }
+          - { label: "Foto Platzhalter (EN)", name: "photo_placeholder_en", widget: "string" }
+
+  - name: "sections"
+    label: "Sektionen Sichtbarkeit"
+    files:
+      - file: "src/_data/sections.yaml"
+        label: "Sichtbarkeit"
+        name: "sections"
+        fields:
+          - { label: "Portfolio sichtbar", name: "portfolio_visible", widget: "boolean", default: true }
+          - { label: "UGC sichtbar", name: "ugc_visible", widget: "boolean", default: true }
+          - { label: "Affiliate sichtbar", name: "affiliate_visible", widget: "boolean", default: true }
+          - { label: "Digital Products sichtbar", name: "products_visible", widget: "boolean", default: true }
+
+  - name: "portfolio_section"
+    label: "Portfolio (Text)"
+    files:
+      - file: "src/_data/portfolio.yaml"
+        label: "Portfolio Sektion"
+        name: "portfolio"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Überschrift (DE)", name: "heading_de", widget: "string" }
+          - { label: "Heading (EN)", name: "heading_en", widget: "string" }
+          - { label: "CTA Eyebrow (DE)", name: "cta_eyebrow_de", widget: "string" }
+          - { label: "CTA Eyebrow (EN)", name: "cta_eyebrow_en", widget: "string" }
+          - { label: "CTA Überschrift (DE)", name: "cta_heading_de", widget: "string" }
+          - { label: "CTA Heading (EN)", name: "cta_heading_en", widget: "string" }
+
+  - name: "portfolio_items"
+    label: "Portfolio Projekte"
+    folder: "src/portfolio"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Kategorie", name: "category", widget: "select", options: ["Zuhause", "Werkstatt"] }
+      - { label: "Name (DE)", name: "name_de", widget: "string" }
+      - { label: "Name (EN)", name: "name_en", widget: "string" }
+      - { label: "Beschreibung (DE)", name: "desc_de", widget: "text" }
+      - { label: "Beschreibung (EN)", name: "desc_en", widget: "text" }
+      - { label: "Bild", name: "image", widget: "image", required: false }
+      - { label: "Reihenfolge", name: "order", widget: "number", default: 1 }
+      - { label: "Permalink (nicht ändern)", name: "permalink", widget: "hidden", default: false }
+
+  - name: "ugc"
+    label: "UGC"
+    files:
+      - file: "src/_data/ugc.yaml"
+        label: "UGC Sektion"
+        name: "ugc"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Überschrift (DE)", name: "heading_de", widget: "string" }
+          - { label: "Heading (EN)", name: "heading_en", widget: "string" }
+          - label: "Service Blöcke"
+            name: "service_blocks"
+            widget: "list"
+            fields:
+              - { label: "Titel (DE)", name: "title_de", widget: "string" }
+              - { label: "Title (EN)", name: "title_en", widget: "string" }
+              - { label: "Punkte (DE)", name: "items_de", widget: "list" }
+              - { label: "Items (EN)", name: "items_en", widget: "list" }
+          - { label: "Brands Label (DE)", name: "brands_label_de", widget: "string" }
+          - { label: "Brands Label (EN)", name: "brands_label_en", widget: "string" }
+          - label: "Marken"
+            name: "brands"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Logo", name: "logo", widget: "image", required: false }
+          - { label: "Testimonials Label", name: "testimonials_label", widget: "string" }
+          - { label: "CTA Eyebrow (DE)", name: "cta_eyebrow_de", widget: "string" }
+          - { label: "CTA Eyebrow (EN)", name: "cta_eyebrow_en", widget: "string" }
+          - { label: "CTA Überschrift (DE)", name: "cta_heading_de", widget: "string" }
+          - { label: "CTA Heading (EN)", name: "cta_heading_en", widget: "string" }
+
+  - name: "testimonials"
+    label: "Testimonials"
+    folder: "src/testimonials"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Zitat (DE)", name: "quote_de", widget: "text" }
+      - { label: "Quote (EN)", name: "quote_en", widget: "text" }
+      - { label: "Marke / Name", name: "author", widget: "string" }
+      - { label: "Kategorie / Kollaboration", name: "meta", widget: "string" }
+      - { label: "Reihenfolge", name: "order", widget: "number", default: 1 }
+      - { label: "Permalink (nicht ändern)", name: "permalink", widget: "hidden", default: false }
+
+  - name: "affiliate"
+    label: "Affiliate"
+    files:
+      - file: "src/_data/affiliate.yaml"
+        label: "Affiliate Sektion"
+        name: "affiliate"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Amazon Label", name: "amazon_label", widget: "string" }
+          - { label: "Überschrift (DE)", name: "heading_de", widget: "string" }
+          - { label: "Heading (EN)", name: "heading_en", widget: "string" }
+          - { label: "Text (DE)", name: "text_de", widget: "text" }
+          - { label: "Text (EN)", name: "text_en", widget: "text" }
+          - { label: "Button Text (DE)", name: "cta_label_de", widget: "string" }
+          - { label: "Button Text (EN)", name: "cta_label_en", widget: "string" }
+          - { label: "Storefront Link", name: "cta_link", widget: "string" }
+          - label: "Kategorien"
+            name: "categories"
+            widget: "list"
+            fields:
+              - { label: "Label (DE)", name: "label_de", widget: "string" }
+              - { label: "Label (EN)", name: "label_en", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
+          - { label: "'Weitere Kategorien' Label (DE)", name: "more_label_de", widget: "string" }
+          - { label: "'More categories' Label (EN)", name: "more_label_en", widget: "string" }
+          - { label: "Storefront Übersicht Link", name: "more_link", widget: "string" }
+          - { label: "Weitere Programme Label (DE)", name: "other_programs_label_de", widget: "string" }
+          - { label: "Other Programs Label (EN)", name: "other_programs_label_en", widget: "string" }
+          - { label: "Platzhalter Text (DE)", name: "other_programs_placeholder_de", widget: "string" }
+          - { label: "Placeholder Text (EN)", name: "other_programs_placeholder_en", widget: "string" }
+          - { label: "Anzahl Platzhalter", name: "other_programs_count", widget: "number", default: 3 }
+
+  - name: "products_section"
+    label: "Digital Products (Text)"
+    files:
+      - file: "src/_data/products_section.yaml"
+        label: "Digital Products Sektion"
+        name: "products_section"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - { label: "Überschrift (DE)", name: "heading_de", widget: "string" }
+          - { label: "Heading (EN)", name: "heading_en", widget: "string" }
+          - { label: "Intro (DE)", name: "intro_de", widget: "text" }
+          - { label: "Intro (EN)", name: "intro_en", widget: "text" }
+
+  - name: "products"
+    label: "Digital Products"
+    folder: "src/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Beschreibung (DE)", name: "desc_de", widget: "text" }
+      - { label: "Beschreibung (EN)", name: "desc_en", widget: "text" }
+      - { label: "Bild", name: "image", widget: "image", required: false }
+      - { label: "Link", name: "link", widget: "string" }
+      - { label: "Reihenfolge", name: "order", widget: "number", default: 1 }
+      - { label: "Permalink (nicht ändern)", name: "permalink", widget: "hidden", default: false }
+
+  - name: "kontakt"
+    label: "Kontakt"
+    files:
+      - file: "src/_data/kontakt.yaml"
+        label: "Kontakt Sektion"
+        name: "kontakt"
+        fields:
+          - { label: "Eyebrow (DE)", name: "eyebrow_de", widget: "string" }
+          - { label: "Eyebrow (EN)", name: "eyebrow_en", widget: "string" }
+          - { label: "Überschrift (DE, HTML erlaubt)", name: "heading_de", widget: "string" }
+          - { label: "Heading (EN, HTML allowed)", name: "heading_en", widget: "string" }
+          - { label: "Text (DE)", name: "text_de", widget: "text" }
+          - { label: "Text (EN)", name: "text_en", widget: "text" }
+          - { label: "Instagram Handle", name: "instagram_handle", widget: "string" }
+          - { label: "Instagram URL", name: "instagram_url", widget: "string" }
+          - { label: "E-Mail", name: "email", widget: "string" }

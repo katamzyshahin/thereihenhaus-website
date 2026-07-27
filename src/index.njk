@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Das Reihenhaus – Ramzy & Kati</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&family=Courier+Prime&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">Das Reihenhaus</a>
+  <ul class="nav-links">
+    <li><a href="#ueber-uns"><span data-lang="de">Über uns</span><span data-lang="en">About</span></a></li>
+    {% if sections.portfolio_visible %}<li><a href="#portfolio">Portfolio</a></li>{% endif %}
+    {% if sections.ugc_visible %}<li><a href="#ugc">UGC</a></li>{% endif %}
+    {% if sections.affiliate_visible %}<li><a href="#affiliate">Affiliate</a></li>{% endif %}
+    {% if sections.products_visible %}<li><a href="#digital-products"><span data-lang="de">Produkte</span><span data-lang="en">Products</span></a></li>{% endif %}
+    <li><a href="#kontakt"><span data-lang="de">Kontakt</span><span data-lang="en">Contact</span></a></li>
+  </ul>
+  <button class="lang-toggle" onclick="toggleLang()">DE / EN</button>
+</nav>
+
+<!-- HERO -->
+<section id="home" style="max-width:100%; padding:0; margin:0;">
+  <div class="hero-left">
+    <p class="hero-eyebrow">{{ hero.eyebrow }}</p>
+    <h1 class="hero-title">
+      <span data-lang="de">{{ hero.title_line1_de }}<br>{{ hero.title_line2_de }}<br><em>{{ hero.title_line3_de }}</em></span>
+      <span data-lang="en">{{ hero.title_line1_en }}<br>{{ hero.title_line2_en }}<br><em>{{ hero.title_line3_en }}</em></span>
+    </h1>
+    <p class="hero-sub">
+      <span data-lang="de">{{ hero.subtitle_de }}</span>
+      <span data-lang="en">{{ hero.subtitle_en }}</span>
+    </p>
+    <a href="{{ hero.cta_link }}" class="hero-cta">
+      <span data-lang="de">{{ hero.cta_label_de }}</span>
+      <span data-lang="en">{{ hero.cta_label_en }}</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+  <div class="hero-right">
+    {% if hero.photo %}
+    <img src="{{ hero.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;" />
+    {% else %}
+    <div class="hero-img-placeholder">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <rect x="6" y="10" width="36" height="28" rx="1" stroke="#3B2F24" stroke-width="1.5"/>
+        <circle cx="17" cy="22" r="5" stroke="#3B2F24" stroke-width="1.5"/>
+        <path d="M6 32l10-8 8 6 6-4 12 10" stroke="#3B2F24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span data-lang="de">{{ hero.photo_placeholder_de }}</span>
+      <span data-lang="en">{{ hero.photo_placeholder_en }}</span>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<div class="grain-divider"></div>
+
+<!-- ÜBER UNS -->
+<section id="ueber-uns">
+  <p class="section-eyebrow"><span data-lang="de">{{ about.eyebrow_de }}</span><span data-lang="en">{{ about.eyebrow_en }}</span></p>
+  <h2 class="section-title">
+    <span data-lang="de">{{ about.heading_de | safe }}</span>
+    <span data-lang="en">{{ about.heading_en | safe }}</span>
+  </h2>
+  <div class="about-grid">
+    <div class="about-img">
+      {% if about.photo %}
+      <img src="{{ about.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;" />
+      {% else %}
+      <span data-lang="de">{{ about.photo_placeholder_de }}</span>
+      <span data-lang="en">{{ about.photo_placeholder_en }}</span>
+      {% endif %}
+    </div>
+    <div class="about-text">
+      <p data-lang="de">{{ about.paragraph1_de }}</p>
+      <p data-lang="en">{{ about.paragraph1_en }}</p>
+      <p data-lang="de">{{ about.paragraph2_de }}</p>
+      <p data-lang="en">{{ about.paragraph2_en }}</p>
+      <div class="about-tags">
+        {% for tag in about.tags %}
+        <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if sections.portfolio_visible %}
+<div class="grain-divider"></div>
+
+<!-- PORTFOLIO -->
+<div id="portfolio" style="background: var(--surface);">
+  <div class="portfolio-header">
+    <div>
+      <p class="section-eyebrow">{{ portfolio.eyebrow }}</p>
+      <h2 class="section-title">
+        <span data-lang="de">{{ portfolio.heading_de }}</span>
+        <span data-lang="en">{{ portfolio.heading_en }}</span>
+      </h2>
+    </div>
+  </div>
+
+  {% if collections.portfolioZuhause | length %}
+  <p class="subsection-label">Zuhause</p>
+  <div class="portfolio-grid" style="margin-bottom:3.5rem;">
+    {% for item in collections.portfolioZuhause %}
+    <div class="project-card">
+      <div class="project-img">
+        {% if item.data.image %}
+        <img src="{{ item.data.image }}" alt="" style="width:100%;height:100%;object-fit:cover;" />
+        {% else %}
+        <span data-lang="de">Video folgt</span>
+        <span data-lang="en">Video coming soon</span>
+        {% endif %}
+      </div>
+      <div class="project-info">
+        <p class="project-cat">{{ item.data.category }}</p>
+        <h3 class="project-name" data-lang="de">{{ item.data.name_de }}</h3>
+        <h3 class="project-name" data-lang="en" style="display:none">{{ item.data.name_en }}</h3>
+        <p class="project-desc" data-lang="de">{{ item.data.desc_de }}</p>
+        <p class="project-desc" data-lang="en" style="display:none">{{ item.data.desc_en }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if collections.portfolioWerkstatt | length %}
+  <p class="subsection-label">Werkstatt</p>
+  <div class="portfolio-grid">
+    {% for item in collections.portfolioWerkstatt %}
+    <div class="project-card">
+      <div class="project-img">
+        {% if item.data.image %}
+        <img src="{{ item.data.image }}" alt="" style="width:100%;height:100%;object-fit:cover;" />
+        {% else %}
+        <span data-lang="de">Video folgt</span>
+        <span data-lang="en">Video coming soon</span>
+        {% endif %}
+      </div>
+      <div class="project-info">
+        <p class="project-cat">{{ item.data.category }}</p>
+        <h3 class="project-name" data-lang="de">{{ item.data.name_de }}</h3>
+        <h3 class="project-name" data-lang="en" style="display:none">{{ item.data.name_en }}</h3>
+        <p class="project-desc" data-lang="de">{{ item.data.desc_de }}</p>
+        <p class="project-desc" data-lang="en" style="display:none">{{ item.data.desc_en }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="work-cta">
+    <p class="section-eyebrow"><span data-lang="de">{{ portfolio.cta_eyebrow_de }}</span><span data-lang="en">{{ portfolio.cta_eyebrow_en }}</span></p>
+    <h3 class="section-title">
+      <span data-lang="de">{{ portfolio.cta_heading_de }}</span>
+      <span data-lang="en">{{ portfolio.cta_heading_en }}</span>
+    </h3>
+    <form class="inline-form" name="portfolio-anfrage" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="portfolio-anfrage" />
+      <p class="hidden-honeypot"><label>Nicht ausfüllen<input name="bot-field" /></label></p>
+      <div class="form-row">
+        <label><span data-lang="de">Name</span><span data-lang="en">Name</span></label>
+        <input type="text" name="name" required />
+      </div>
+      <div class="form-row">
+        <label>E-Mail</label>
+        <input type="email" name="email" required />
+      </div>
+      <div class="form-row">
+        <label><span data-lang="de">Nachricht</span><span data-lang="en">Message</span></label>
+        <textarea name="message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">
+        <span data-lang="de">Absenden</span>
+        <span data-lang="en">Send</span>
+      </button>
+    </form>
+  </div>
+</div>
+{% endif %}
+
+{% if sections.ugc_visible %}
+<div class="grain-divider"></div>
+
+<!-- UGC -->
+<div id="ugc">
+  <p class="section-eyebrow">{{ ugc.eyebrow }}</p>
+  <h2 class="section-title">
+    <span data-lang="de">{{ ugc.heading_de }}</span>
+    <span data-lang="en">{{ ugc.heading_en }}</span>
+  </h2>
+
+  <div class="service-blocks">
+    {% for block in ugc.service_blocks %}
+    <div class="service-block">
+      <h3><span data-lang="de">{{ block.title_de }}</span><span data-lang="en">{{ block.title_en }}</span></h3>
+      <ul>
+        {% for item_de in block.items_de %}
+        <li><span data-lang="de">{{ item_de }}</span><span data-lang="en" style="display:none">{{ block.items_en[loop.index0] }}</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+
+  <p class="subsection-label"><span data-lang="de">{{ ugc.brands_label_de }}</span><span data-lang="en">{{ ugc.brands_label_en }}</span></p>
+  <div class="brands-grid">
+    {% for brand in ugc.brands %}
+    <div class="brand-logo">
+      {% if brand.logo %}
+      <img src="{{ brand.logo }}" alt="{{ brand.name }}" style="max-width:80%;max-height:60%;" />
+      {% else %}
+      {{ brand.name }}
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if collections.testimonials | length %}
+  <p class="subsection-label">{{ ugc.testimonials_label }}</p>
+  <div class="testimonial-grid">
+    {% for t in collections.testimonials %}
+    <div class="testimonial-card">
+      <p class="testimonial-quote" data-lang="de">{{ t.data.quote_de }}</p>
+      <p class="testimonial-quote" data-lang="en" style="display:none">{{ t.data.quote_en }}</p>
+      <p class="testimonial-author"><strong>{{ t.data.author }}</strong><br>{{ t.data.meta }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="work-cta">
+    <p class="section-eyebrow"><span data-lang="de">{{ ugc.cta_eyebrow_de }}</span><span data-lang="en">{{ ugc.cta_eyebrow_en }}</span></p>
+    <h3 class="section-title">
+      <span data-lang="de">{{ ugc.cta_heading_de }}</span>
+      <span data-lang="en">{{ ugc.cta_heading_en }}</span>
+    </h3>
+    <form class="inline-form" name="ugc-anfrage" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="ugc-anfrage" />
+      <p class="hidden-honeypot"><label>Nicht ausfüllen<input name="bot-field" /></label></p>
+      <div class="form-row">
+        <label>Name / <span data-lang="de">Marke</span><span data-lang="en">Brand</span></label>
+        <input type="text" name="name" required />
+      </div>
+      <div class="form-row">
+        <label>E-Mail</label>
+        <input type="email" name="email" required />
+      </div>
+      <div class="form-row">
+        <label><span data-lang="de">Nachricht</span><span data-lang="en">Message</span></label>
+        <textarea name="message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">
+        <span data-lang="de">Absenden</span>
+        <span data-lang="en">Send</span>
+      </button>
+    </form>
+  </div>
+</div>
+{% endif %}
+
+{% if sections.affiliate_visible %}
+<div class="grain-divider"></div>
+
+<!-- AFFILIATE -->
+<section id="affiliate">
+  <p class="section-eyebrow">{{ affiliate.eyebrow }}</p>
+  <div class="amazon-grid">
+    <div class="amazon-text">
+      <p class="subsection-label" style="margin-bottom:0.5rem;">{{ affiliate.amazon_label }}</p>
+      <h2 class="section-title">
+        <span data-lang="de">{{ affiliate.heading_de }}</span>
+        <span data-lang="en">{{ affiliate.heading_en }}</span>
+      </h2>
+      <p data-lang="de">{{ affiliate.text_de }}</p>
+      <p data-lang="en">{{ affiliate.text_en }}</p>
+      <a href="{{ affiliate.cta_link }}" class="amazon-btn">
+        <span data-lang="de">{{ affiliate.cta_label_de }}</span>
+        <span data-lang="en">{{ affiliate.cta_label_en }}</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="amazon-preview">
+      {% set icons = [
+        '<rect x="4" y="10" width="24" height="16" rx="1" stroke="#3B2F24" stroke-width="1.4"/><path d="M10 10V7a6 6 0 0 1 12 0v3" stroke="#3B2F24" stroke-width="1.4" stroke-linecap="round"/>',
+        '<path d="M6 26 L16 6 L26 26" stroke="#3B2F24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 20h14" stroke="#3B2F24" stroke-width="1.4" stroke-linecap="round"/>',
+        '<circle cx="16" cy="16" r="10" stroke="#3B2F24" stroke-width="1.4"/><path d="M16 10v6l4 2" stroke="#3B2F24" stroke-width="1.4" stroke-linecap="round"/>',
+        '<rect x="6" y="8" width="20" height="16" rx="1" stroke="#3B2F24" stroke-width="1.4"/><path d="M11 8V6M21 8V6M6 14h20" stroke="#3B2F24" stroke-width="1.4" stroke-linecap="round"/>'
+      ] %}
+      {% for cat in affiliate.categories %}
+      <a href="{{ cat.link }}" class="amazon-item" target="_blank">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">{{ icons[loop.index0 % icons.length] | safe }}</svg>
+        <span data-lang="de">{{ cat.label_de }}</span>
+        <span data-lang="en">{{ cat.label_en }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    <a href="{{ affiliate.more_link }}" class="amazon-more" target="_blank">
+      <span data-lang="de">{{ affiliate.more_label_de }}</span>
+      <span data-lang="en">{{ affiliate.more_label_en }}</span>
+    </a>
+  </div>
+
+  <div class="affiliate-other">
+    <p class="subsection-label"><span data-lang="de">{{ affiliate.other_programs_label_de }}</span><span data-lang="en">{{ affiliate.other_programs_label_en }}</span></p>
+    <div class="affiliate-other-grid">
+      {% for i in range(0, affiliate.other_programs_count) %}
+      <div class="affiliate-placeholder"><span data-lang="de">{{ affiliate.other_programs_placeholder_de }}</span><span data-lang="en">{{ affiliate.other_programs_placeholder_en }}</span></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if sections.products_visible %}
+<div class="grain-divider"></div>
+
+<!-- DIGITAL PRODUCTS -->
+<section id="digital-products">
+  <p class="section-eyebrow">{{ products_section.eyebrow }}</p>
+  <h2 class="section-title">
+    <span data-lang="de">{{ products_section.heading_de }}</span>
+    <span data-lang="en">{{ products_section.heading_en }}</span>
+  </h2>
+  <p data-lang="de">{{ products_section.intro_de }}</p>
+  <p data-lang="en">{{ products_section.intro_en }}</p>
+
+  <div class="products-grid">
+    {% for p in collections.products %}
+    <div class="product-teaser">
+      <div class="product-img">
+        {% if p.data.image %}
+        <img src="{{ p.data.image }}" alt="" style="width:100%;height:100%;object-fit:cover;" />
+        {% else %}
+        <span data-lang="de">Produktbild</span>
+        <span data-lang="en">Product image</span>
+        {% endif %}
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">{{ p.data.name }}</h3>
+        <p class="product-desc" data-lang="de">{{ p.data.desc_de }}</p>
+        <p class="product-desc" data-lang="en" style="display:none">{{ p.data.desc_en }}</p>
+        <a href="{{ p.data.link }}" class="product-link">
+          <span data-lang="de">Ansehen</span><span data-lang="en">View</span>
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+            <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<div class="grain-divider"></div>
+
+<!-- KONTAKT -->
+<div id="kontakt">
+  <div class="kontakt-inner">
+    <div>
+      <p class="section-eyebrow"><span data-lang="de">{{ kontakt.eyebrow_de }}</span><span data-lang="en">{{ kontakt.eyebrow_en }}</span></p>
+      <h2 class="section-title">
+        <span data-lang="de">{{ kontakt.heading_de | safe }}</span>
+        <span data-lang="en">{{ kontakt.heading_en | safe }}</span>
+      </h2>
+      <p class="kontakt-text" data-lang="de">{{ kontakt.text_de }}</p>
+      <p class="kontakt-text" data-lang="en">{{ kontakt.text_en }}</p>
+    </div>
+    <div class="kontakt-links">
+      <a href="{{ kontakt.instagram_url }}" class="kontakt-link" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <rect x="2" y="2" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="14.5" cy="5.5" r="1" fill="currentColor"/>
+        </svg>
+        <span>
+          <span class="kontakt-link-label">Instagram</span>
+          {{ kontakt.instagram_handle }}
+        </span>
+      </a>
+      <a href="mailto:{{ kontakt.email }}" class="kontakt-link">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <rect x="2" y="4" width="16" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M2 6l8 5 8-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span>
+          <span class="kontakt-link-label">E-Mail</span>
+          {{ kontakt.email }}
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Das Reihenhaus – Ramzy &amp; Kati. Zürich.</p>
+  <a href="#">Impressum</a>
+</footer>
+
+<script>
+  function toggleLang() {
+    document.body.classList.toggle('en');
+  }
+</script>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
