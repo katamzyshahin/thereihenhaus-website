@@ -111,7 +111,7 @@
   <p class="subsection-label">Zuhause</p>
   <div class="portfolio-grid" style="margin-bottom:3.5rem;">
     {% for item in collections.portfolioZuhause %}
-    <div class="project-card">
+    <a class="project-card" href="{{ item.data.link | default('#') }}" target="_blank" rel="noopener">
       <div class="project-img">
         {% if item.data.image %}
         <img src="{{ item.data.image }}" alt="" style="width:100%;height:100%;object-fit:cover;" />
@@ -127,7 +127,7 @@
         <p class="project-desc" data-lang="de">{{ item.data.desc_de }}</p>
         <p class="project-desc" data-lang="en" style="display:none">{{ item.data.desc_en }}</p>
       </div>
-    </div>
+    </a>
     {% endfor %}
   </div>
   {% endif %}
@@ -136,7 +136,7 @@
   <p class="subsection-label">Werkstatt</p>
   <div class="portfolio-grid">
     {% for item in collections.portfolioWerkstatt %}
-    <div class="project-card">
+    <a class="project-card" href="{{ item.data.link | default('#') }}" target="_blank" rel="noopener">
       <div class="project-img">
         {% if item.data.image %}
         <img src="{{ item.data.image }}" alt="" style="width:100%;height:100%;object-fit:cover;" />
@@ -152,7 +152,7 @@
         <p class="project-desc" data-lang="de">{{ item.data.desc_de }}</p>
         <p class="project-desc" data-lang="en" style="display:none">{{ item.data.desc_en }}</p>
       </div>
-    </div>
+    </a>
     {% endfor %}
   </div>
   {% endif %}
