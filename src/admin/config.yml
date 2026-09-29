@@ -87,8 +87,8 @@ collections:
       - { label: "Name (EN)", name: "name_en", widget: "string" }
       - { label: "Beschreibung (DE)", name: "desc_de", widget: "text" }
       - { label: "Beschreibung (EN)", name: "desc_en", widget: "text" }
-      - { label: "Bild (Vorschau)", name: "image", widget: "image", required: false }
-      - { label: "Video", name: "video", widget: "file", required: false, hint: "Video-Datei hochladen (mp4 empfohlen)" }
+      - { label: "Bild (Vorschau, falls kein Reel verlinkt)", name: "image", widget: "image", required: false }
+      - { label: "Instagram Reel Link", name: "instagram_url", widget: "string", required: false, hint: "z.B. https://www.instagram.com/reel/ABC123/" }
       - { label: "Reihenfolge", name: "order", widget: "number", default: 1 }
       - { label: "Permalink (nicht ändern)", name: "permalink", widget: "hidden", default: false }
 
