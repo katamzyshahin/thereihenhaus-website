@@ -87,8 +87,8 @@ collections:
       - { label: "Name (EN)", name: "name_en", widget: "string" }
       - { label: "Beschreibung (DE)", name: "desc_de", widget: "text" }
       - { label: "Beschreibung (EN)", name: "desc_en", widget: "text" }
-      - { label: "Bild", name: "image", widget: "image", required: false }
-      - { label: "Link (z.B. Instagram Reel)", name: "link", widget: "string", required: false }
+      - { label: "Bild (Vorschau)", name: "image", widget: "image", required: false }
+      - { label: "Video", name: "video", widget: "file", required: false, hint: "Video-Datei hochladen (mp4 empfohlen)" }
       - { label: "Reihenfolge", name: "order", widget: "number", default: 1 }
       - { label: "Permalink (nicht ändern)", name: "permalink", widget: "hidden", default: false }
 
