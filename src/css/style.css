@@ -331,7 +331,8 @@
     }
 
     .project-card {
-      background: var(--white);
+      display: block;
+    background: var(--white);
       cursor: pointer;
       transition: transform 0.2s;
     }
